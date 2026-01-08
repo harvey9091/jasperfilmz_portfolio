@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jasperfilmz Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-pb3zJjPfwMHjR/7RXfGZJDtk3MPPVmgG/Yy2DA8qxU89T6bpZGuwhutxap/Yo5YgGe+1Yq5T20l5N7RGZ+0J3A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    :root {
+      --bg: #f9f9f9;
+      --card-bg: #ffffff;
+      --text: #111;
+      --accent-gradient: linear-gradient(135deg, #e0e0e0, #cfcfcf);
+      --shadow: rgba(0, 0, 0, 0.1);
+      --card-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
+      --overlay-bg: rgba(0, 0, 0, 0.6);
+    }
+
+[data-theme="dark"] {
+  --bg: #1c1c1c;
+  --card-bg: #2a2a2a;
+  --text: #f1f1f1;
+  --shadow: rgba(0, 0, 0, 0.3); /* darker, subtle shadow */
+  --card-shadow: 0 12px 28px rgba(0, 0, 0, 0.6); /* deeper shadow */
+}
+
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    html, body {
+      background-color: #1c1c1c !important;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      scroll-behavior: smooth;
+      padding: 2rem;
+      transition: var(--transition);
+    }
+
+    header {
+      text-align: center;
+      padding: 4rem 1rem 3rem;
+    }
+
+    header h1 {
+      font-size: 3rem;
+      font-weight: 700;
+    }
+
+    header p {
+      font-size: 1.2rem;
+      margin-top: 1rem;
+      color: #777;
+    }
+
+    .theme-icon {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--card-bg);
+      border: 1px solid rgba(0,0,0,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text);
+      font-size: 1.4rem;
+      cursor: pointer;
+      z-index: 1400;
+      transition: var(--transition);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .categories {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .category {
+      background: var(--card-bg);
+      box-shadow: var(--card-shadow);
+      border-radius: 1.5rem;
+      padding: 2.5rem 3rem;
+      min-width: 240px;
+      text-align: center;
+      cursor: pointer;
+      transition: var(--transition);
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .category:hover {
+      transform: scale(1.08);
+      background: var(--accent-gradient);
+      color: #000;
+    }
+
+    .category.active-category {
+      background: var(--accent-gradient);
+      color: #000;
+      border: 2px solid #000;
+      transform: scale(1.05);
+    }
+
+    .videos {
+      display: none;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+      margin-top: 2rem;
+      margin-bottom: 4rem;
+      animation: fadeIn 0.6s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .video {
+      flex: 1 1 480px;
+      max-width: 480px;
+      aspect-ratio: 16/9;
+      border-radius: 0.75rem;
+      overflow: hidden;
+      box-shadow: 0 8px 20px var(--shadow);
+      cursor: pointer;
+    }
+
+    .video iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      pointer-events: none;
+      display: block;
+      border-radius: 0.75rem;
+    }
+
+    .popup-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: var(--overlay-bg);
+      backdrop-filter: blur(8px);
+      z-index: 1500;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .popup-overlay.active {
+      display: flex;
+    }
+
+    .popup {
+      background: var(--card-bg);
+      border-radius: 1rem;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+      aspect-ratio: 16 / 9;
+      width: 90%;
+      max-width: 960px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .popup iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 1rem;
+    }
+
+    .popup-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      font-size: 2rem;
+      color: white;
+      cursor: pointer;
+      z-index: 1600;
+    }
+
+    .testimonials-container {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      overflow: hidden;
+      background: var(--card-bg);
+      box-shadow: 0 -8px 20px var(--shadow);
+      padding: 1rem 0;
+      z-index: 999;
+    }
+
+    .testimonials-slider {
+      display: flex;
+      gap: 2rem;
+      animation: scroll-left 50s linear infinite;
+    }
+
+    .testimonial-card {
+      min-width: 260px;
+      max-width: 260px;
+      background: var(--card-bg);
+      border-radius: 1rem;
+      padding: 0.8rem;
+      box-shadow: var(--card-shadow);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      transition: var(--transition);
+    }
+
+    .testimonial-card img {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 50%;
+      margin-bottom: 0.8rem;
+      border: 2px solid var(--shadow);
+    }
+
+    .testimonial-card p {
+      font-size: 0.9rem;
+      line-height: 1.4;
+      color: var(--text);
+    }
+
+    @keyframes scroll-left {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
+    }
+
+    @media (max-width: 768px) {
+      .testimonial-card {
+        min-width: 200px;
+        max-width: 200px;
+      }
+    }
+  </style>
+</head>
+<body data-theme="dark">
+
+  <!-- Theme Toggle -->
+
+  <!-- Popup -->
+  <div class="popup-overlay" id="popup">
+    <div class="popup">
+      <iframe id="popupVideo" src="" allowfullscreen></iframe>
+      <div class="popup-close" onclick="closePopup()">&times;</div>
+    </div>
+  </div>
+
+  <header>
+    <h1>Hi, I'm Jasperfilmz</h1>
+    <p>Professional Video Editor | Transforming Ideas Into Stunning Visuals</p>
+  </header>
+
+  <div class="categories">
+    <div class="category active-category" onclick="toggleVideos('real-estate', this)">Real Estate</div>
+    <div class="category" onclick="toggleVideos('trading', this)">Trading</div>
+    <div class="category" onclick="toggleVideos('coaching', this)">Coaching</div>
+    <div class="category" onclick="toggleVideos('informative', this)">Informative</div>
+    <div class="category" onclick="toggleVideos('podcast', this)">Podcast</div>
+    <div class="category" onclick="toggleVideos('fitness', this)">Health & Fitness</div>
+  </div>
+
+  <div class="videos" id="real-estate">
+
+    <div class="video" onclick="openPopup('https://www.youtube.com/embed/kg6q4UvBirM')">
+      <iframe src="https://www.youtube.com/embed/kg6q4UvBirM" loading="lazy"></iframe>
+    </div>
+    <div class="video" onclick="openPopup('https://www.youtube.com/embed/bdnOX9l4F6w')">
+      <iframe src="https://www.youtube.com/embed/bdnOX9l4F6w" loading="lazy"></iframe>
+    </div>
+    <div class="video" onclick="openPopup('https://www.youtube.com/embed/I6Hr4r0B-LQ')">
+      <iframe src="https://www.youtube.com/embed/I6Hr4r0B-LQ" loading="lazy"></iframe>
+    </div>
+  </div>
+
+  <div class="videos" id="trading">
+    <div class="video" onclick="openPopup('https://www.youtube.com/embed/6wnCZBoErNc')">
+      <iframe src="https://www.youtube.com/embed/6wnCZBoErNc" loading="lazy"></iframe>
+    </div>
+    <div class="video" onclick="openPopup('https://www.youtube.com/embed/-458QjUhRbY')">
+      <iframe src="https://www.youtube.com/embed/-458QjUhRbY" loading="lazy"></iframe>
+    </div>
+    <div class="video" onclick="openPopup('https://www.youtube.com/embed/W2OwYtT8HrM')">
+      <iframe src="https://www.youtube.com/embed/W2OwYtT8HrM" loading="lazy"></iframe>
+    </div>
+  </div>
+
+  <div class="videos" id="coaching">
+    <div class="video" onclick="openPopup('https://www.youtube.com/embed/ImCpidgnNbc')">
+      <iframe src="https://www.youtube.com/embed/ImCpidgnNbc" loading="lazy"></iframe>
+    </div>
+    <div class="video" onclick="openPopup('https://www.youtube.com/embed/-EDHQ4IBJ6k')">
+      <iframe src="https://www.youtube.com/embed/-EDHQ4IBJ6k" loading="lazy"></iframe>
+    </div>
+    <div class="video" onclick="openPopup('https://www.youtube.com/embed/VVMh-F9o7W0')">
+      <iframe src="https://www.youtube.com/embed/VVMh-F9o7W0" loading="lazy"></iframe>
+    </div>
+    <div class="video" onclick="openPopup('https://www.youtube.com/embed/JBO9muBokFo')">
+      <iframe src="https://www.youtube.com/embed/JBO9muBokFo" loading="lazy"></iframe>
+    </div>
+    <div class="video" onclick="openPopup('https://www.youtube.com/embed/1Yki6cGV7ho')">
+      <iframe src="https://www.youtube.com/embed/1Yki6cGV7ho" loading="lazy"></iframe>
+    </div>
+    <div class="video" onclick="openPopup('https://www.youtube.com/embed/vMyMbqp85K0')">
+      <iframe src="https://www.youtube.com/embed/vMyMbqp85K0" loading="lazy"></iframe>
+    </div>
+  </div>
+
+  <div class="videos" id="informative">
+    <div class="video" onclick="openPopup('https://www.youtube.com/embed/VQgPg8cHzjI')">
+      <iframe src="https://www.youtube.com/embed/VQgPg8cHzjI" loading="lazy"></iframe>
+    </div>
+    <div class="video" onclick="openPopup('https://www.youtube.com/embed/_abUHbs0vP4')">
+      <iframe src="https://www.youtube.com/embed/_abUHbs0vP4" loading="lazy"></iframe>
+    </div>
+    <div class="video" onclick="openPopup('https://www.youtube.com/embed/XiaXZKbyG74')">
+      <iframe src="https://www.youtube.com/embed/XiaXZKbyG74" loading="lazy"></iframe>
+    </div>
+    <div class="video" onclick="openPopup('https://www.youtube.com/embed/sqoyzJRYIQ8')">
+      <iframe src="https://www.youtube.com/embed/sqoyzJRYIQ8" loading="lazy"></iframe>
+    </div>
+    <div class="video" onclick="openPopup('https://www.youtube.com/embed/yZT9Ya3KwLs')">
+      <iframe src="https://www.youtube.com/embed/yZT9Ya3KwLs" loading="lazy"></iframe>
+    </div>
+    <div class="video" onclick="openPopup('https://www.youtube.com/embed/M4OswTN4JKo')">
+      <iframe src="https://www.youtube.com/embed/M4OswTN4JKo" loading="lazy"></iframe>
+    </div>
+    <div class="video" onclick="openPopup('https://www.youtube.com/embed/0dK1mG97wbk')">
+      <iframe src="https://www.youtube.com/embed/0dK1mG97wbk" loading="lazy"></iframe>
+    </div>
+  </div>
+
+  <div class="videos" id="podcast">
+    <div class="video" onclick="openPopup('https://www.youtube.com/embed/BCuyU_YD4vQ')">
+      <iframe src="https://www.youtube.com/embed/BCuyU_YD4vQ" loading="lazy"></iframe>
+    </div>
+    <div class="video" onclick="openPopup('https://www.youtube.com/embed/I6Hr4r0B-LQ')">
+      <iframe src="https://www.youtube.com/embed/I6Hr4r0B-LQ" loading="lazy"></iframe>
+    </div>
+    <div class="video" onclick="openPopup('https://www.youtube.com/embed/2xqaSY95WwI')">
+      <iframe src="https://www.youtube.com/embed/2xqaSY95WwI" loading="lazy"></iframe>
+    </div>
+    <div class="video" onclick="openPopup('https://www.youtube.com/embed/eivIJTtERYY')">
+      <iframe src="https://www.youtube.com/embed/eivIJTtERYY" loading="lazy"></iframe>
+    </div>
+  </div>
+
+  <div class="videos" id="fitness">
+    <div class="video" onclick="openPopup('https://www.youtube.com/embed/T_Q5FReQYWU')">
+      <iframe src="https://www.youtube.com/embed/T_Q5FReQYWU" loading="lazy"></iframe>
+    </div>
+    <div class="video" onclick="openPopup('https://www.youtube.com/embed/4IIXAPg6QkU')">
+      <iframe src="https://www.youtube.com/embed/4IIXAPg6QkU" loading="lazy"></iframe>
+    </div>
+    <div class="video" onclick="openPopup('https://www.youtube.com/embed/QX3outKcEO0')">
+      <iframe src="https://www.youtube.com/embed/QX3outKcEO0" loading="lazy"></iframe>
+    </div>
+  </div>
+
+<style>
+  .testimonials-section {
+    margin-top: 4rem;
+    overflow: hidden;
+    position: relative;
+    background: transparent;
+    padding: 1rem 0;
+  }
+
+  .testimonials-wrapper {
+    display: flex;
+    gap: 2rem;
+    animation: slideLeft 50s linear infinite;
+  }
+
+  .testimonial {
+    flex: 0 0 300px;
+    max-width: 300px;
+    background: var(--card-bg);
+    border-radius: 1rem;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: var(--transition);
+  }
+
+  .testimonial img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+    scale: 2;
+  }
+
+  .testimonial p {
+    font-size: 0.95rem;
+    color: var(--text);
+    line-height: 1.4;
+  }
+
+  @keyframes slideLeft {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* Horizontal fade on left and right for smooth edge fadeout */
+  .testimonials-section::before,
+  .testimonials-section::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 80px;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .testimonials-section::before {
+    left: 0;
+    background: linear-gradient(to right, var(--bg), transparent);
+  }
+
+  .testimonials-section::after {
+    right: 0;
+    background: linear-gradient(to left, var(--bg), transparent);
+  }
+
+  @media (max-width: 768px) {
+    .testimonial {
+      flex: 0 0 220px;
+      max-width: 220px;
+    }
+  }
+</style>
+<div class="testimonials-section">
+  <div class="testimonials-wrapper">
+    <!-- Testimonials Start -->
+    <div class="testimonial">
+      <img src="https://i.postimg.cc/LX683g3S/circle1.png" alt="Client 1">
+      <p>Brought my vision to life perfectly. Great attention to detail and a smooth editing style. Couldn’t be happier with the results.</p>
+    </div>
+    <div class="testimonial">
+      <img src="https://i.postimg.cc/ZqLqNx3j/circle2.png" alt="Client 2">
+      <p>Super professional and delivered exactly what I needed. The edits were smooth, and the turnaround was impressively fast.</p>
+    </div>
+    <div class="testimonial">
+      <img src="https://i.postimg.cc/jjT5CFWL/circle3.png" alt="Client 3">
+      <p>Quick, efficient, and nailed the style I was looking for. Really appreciated the flexibility with revisions.</p>
+    </div>
+    <div class="testimonial">
+      <img src="https://i.postimg.cc/ZK90Q3tK/circle4.png" alt="Client 4">
+      <p>The videos came out amazing, great pacing, and just the right vibe.</p>
+    </div>
+    <div class="testimonial">
+      <img src="https://i.postimg.cc/y8cx1H8M/circle5.png" alt="Client 5">
+      <p>Absolutely loved working together. The edits felt cinematic and polished, and they really captured the emotion I wanted.</p>
+    </div>
+    <div class="testimonial">
+      <img src="https://i.postimg.cc/rFvz2mMG/circle6.png" alt="Client 6">
+      <p>Incredible experience! Understood my vision from the start and added creative touches I hadn’t even thought of. Made the whole process easy.</p>
+    </div>
+    <div class="testimonial">
+      <img src="https://i.postimg.cc/dQNLn6fx/circle7.png" alt="Client 7">
+      <p>Really impressed by the communication and professionalism. Delivered exactly what I imagined—and somehow made it even better.</p>
+    </div>
+
+    <!-- Duplicates for seamless loop -->
+    <div class="testimonial">
+      <img src="https://i.postimg.cc/LX683g3S/circle1.png" alt="Client 1">
+      <p>Brought my vision to life perfectly. Great attention to detail and a smooth editing style. Couldn’t be happier with the results.</p>
+    </div>
+    <div class="testimonial">
+      <img src="https://i.postimg.cc/ZqLqNx3j/circle2.png" alt="Client 2">
+      <p>Super professional and delivered exactly what I needed. The edits were smooth, and the turnaround was impressively fast.</p>
+    </div>
+    <div class="testimonial">
+      <img src="https://i.postimg.cc/jjT5CFWL/circle3.png" alt="Client 3">
+      <p>Quick, efficient, and nailed the style I was looking for. Really appreciated the flexibility with revisions.</p>
+    </div>
+    <div class="testimonial">
+      <img src="https://i.postimg.cc/ZK90Q3tK/circle4.png" alt="Client 4">
+      <p>The videos came out amazing, great pacing, and just the right vibe.</p>
+    </div>
+    <div class="testimonial">
+      <img src="https://i.postimg.cc/y8cx1H8M/circle5.png" alt="Client 5">
+      <p>Absolutely loved working together. The edits felt cinematic and polished, and they really captured the emotion I wanted.</p>
+    </div>
+    <div class="testimonial">
+      <img src="https://i.postimg.cc/rFvz2mMG/circle6.png" alt="Client 6">
+      <p>Incredible experience! Understood my vision from the start and added creative touches I hadn’t even thought of. Made the whole process easy.</p>
+    </div>
+    <div class="testimonial">
+      <img src="https://i.postimg.cc/dQNLn6fx/circle7.png" alt="Client 7">
+      <p>Really impressed by the communication and professionalism. Delivered exactly what I imagined—and somehow made it even better.</p>
+    </div>    <div class="testimonial">
+      <img src="https://i.postimg.cc/LX683g3S/circle1.png" alt="Client 1">
+      <p>Brought my vision to life perfectly. Great attention to detail and a smooth editing style. Couldn’t be happier with the results.</p>
+    </div>
+    <div class="testimonial">
+      <img src="https://i.postimg.cc/ZqLqNx3j/circle2.png" alt="Client 2">
+      <p>Super professional and delivered exactly what I needed. The edits were smooth, and the turnaround was impressively fast.</p>
+    </div>
+    <div class="testimonial">
+      <img src="https://i.postimg.cc/jjT5CFWL/circle3.png" alt="Client 3">
+      <p>Quick, efficient, and nailed the style I was looking for. Really appreciated the flexibility with revisions.</p>
+    </div>
+    <div class="testimonial">
+      <img src="https://i.postimg.cc/ZK90Q3tK/circle4.png" alt="Client 4">
+      <p>The videos came out amazing—smooth transitions, great pacing, and just the right vibe. Super impressed!</p>
+    </div>
+    <div class="testimonial">
+      <img src="https://i.postimg.cc/y8cx1H8M/circle5.png" alt="Client 5">
+      <p>Absolutely loved working together. The edits felt cinematic and polished, and they really captured the emotion I wanted. Top-tier work!</p>
+    </div>
+    <div class="testimonial">
+      <img src="https://i.postimg.cc/rFvz2mMG/circle6.png" alt="Client 6">
+      <p>Incredible experience! Understood my vision from the start and added creative touches I hadn’t even thought of. Made the whole process easy.</p>
+    </div>
+    <div class="testimonial">
+      <img src="https://i.postimg.cc/dQNLn6fx/circle7.png" alt="Client 7">
+      <p>Really impressed by the communication and professionalism. Delivered exactly what I imagined—and somehow made it even better.</p>
+    </div>
+  </div>
+</div>
+
+  <script>
+
+  function toggleVideos(categoryId, clickedElement) {
+    // Hide all video sections
+    const allSections = document.querySelectorAll('.videos');
+    allSections.forEach(section => section.style.display = 'none');
+
+    // Show the selected category's videos
+    const activeSection = document.getElementById(categoryId);
+    if (activeSection) {
+      activeSection.style.display = 'flex';
+
+      // Optional: Scroll into view smoothly
+      // activeSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // Update active category button styling
+    document.querySelectorAll('.category').forEach(cat => 
+      cat.classList.remove('active-category')
+    );
+
+    if (clickedElement) {
+      clickedElement.classList.add('active-category');
+    }
+  }
+
+    function openPopup(videoUrl) {
+      const popup = document.getElementById('popup');
+      const iframe = document.getElementById('popupVideo');
+      iframe.src = videoUrl + '?autoplay=1';
+      popup.classList.add('active');
+    }
+
+    function closePopup() {
+      const popup = document.getElementById('popup');
+      const iframe = document.getElementById('popupVideo');
+      iframe.src = '';
+      popup.classList.remove('active');
+    }
+
+    document.getElementById('popup').addEventListener('click', (e) => {
+      if (e.target.id === 'popup') closePopup();
+    });
+
+    window.addEventListener('DOMContentLoaded', () => {
+      toggleVideos('real-estate', document.querySelector('.category.active-category'));
+    });
+  </script>
+</body>
+</html>
+
+
+
