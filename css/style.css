@@ -69,15 +69,15 @@ h1, h2, h3 {
 
 /* Header & Hero */
 header {
-    height: 50vh;
+    height: 40vh; /* Reduced from 50vh */
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-end; /* Align content towards the bottom to minimize gap to categories */
     align-items: center;
     text-align: center;
     background: var(--bg-dark);
     margin: 0;
-    padding: 0;
+    padding-bottom: 2rem; /* Give some space but much less than before */
     position: relative;
     z-index: 1;
 }
@@ -99,7 +99,7 @@ header p {
 
 /* Categories */
 .categories-section {
-    padding: 1rem 0 2rem;
+    padding: 0.5rem 0 2rem; /* Reduced top padding from 1rem */
     background: var(--bg-dark);
     margin-top: -2px; /* Overlap slightly to prevent rendering lines */
 }
