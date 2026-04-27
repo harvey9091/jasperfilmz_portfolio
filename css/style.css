@@ -133,7 +133,7 @@ header p {
 /* Video Grid */
 .videos {
     display: none;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(450px, 1fr)); /* Increased size */
     gap: 2rem;
     animation: fadeInUp 0.8s ease forwards;
 }
@@ -233,22 +233,31 @@ header p {
     gap: 1rem;
 }
 
-.testimonial-header img {
-    width: 120px;
-    height: 120px;
+.testimonial-img-container {
+    width: 90px;
+    height: 90px;
     border-radius: 50%;
-    border: 4px solid var(--accent);
-    object-fit: cover;
-    box-shadow: 0 0 30px rgba(255, 180, 0, 0.4);
-    transform: scale(2.8); /* Zoom into the face since the source images have large margins */
+    border: 3px solid var(--accent);
+    overflow: hidden;
+    flex-shrink: 0;
+    box-shadow: 0 0 20px rgba(255, 180, 0, 0.3);
     background: var(--bg-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.testimonial-img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(3); /* Zoom into the face */
 }
 
 .testimonial-header {
     display: flex;
     align-items: center;
-    gap: 3.5rem; /* Increased gap to accommodate scaled image */
-    padding-left: 2rem; /* Give space for the scaled image */
+    gap: 1.5rem;
 }
 
 .testimonial-info h4 {
@@ -267,7 +276,7 @@ header p {
 
 @keyframes scroll {
     0% { transform: translateX(0); }
-    100% { transform: translateX(calc(-400px * 7 - 2rem * 7)); } /* Based on 7 cards */
+    100% { transform: translateX(-50%); } /* Halfway point for seamless loop with duplicated items */
 }
 
 /* Popup / Modal */

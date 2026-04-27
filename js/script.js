@@ -129,12 +129,10 @@ function initTestimonialLoop() {
     const track = document.querySelector('.testimonials-track');
     if (!track) return;
 
-    // Duplicate testimonials for seamless looping if there are few
+    // Duplicate all cards once to create a seamless infinite loop
     const cards = Array.from(track.children);
-    if (cards.length < 10) {
-        cards.forEach(card => {
-            const clone = card.cloneNode(true);
-            track.appendChild(clone);
-        });
-    }
+    cards.forEach(card => {
+        const clone = card.cloneNode(true);
+        track.appendChild(clone);
+    });
 }
