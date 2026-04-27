@@ -26,18 +26,7 @@ function initAnimations() {
         ease: 'power3.out'
     }, '-=0.6');
 
-    // Scroll reveal for testimonials
-    gsap.from('.testimonial-card', {
-        scrollTrigger: {
-            trigger: '.testimonials-section',
-            start: 'top 80%',
-        },
-        y: 60,
-        opacity: 0,
-        duration: 1,
-        stagger: 0.2,
-        ease: 'power3.out'
-    });
+    // Testimonial scroll reveal removed to prevent conflict with infinite horizontal scroll
 }
 
 /**
@@ -129,12 +118,10 @@ function initTestimonialLoop() {
     const track = document.querySelector('.testimonials-track');
     if (!track) return;
 
-    // Duplicate cards multiple times to ensure there's always content visible during the loop
+    // Duplicate all cards once for a seamless loop
     const cards = Array.from(track.children);
-    for (let i = 0; i < 3; i++) {
-        cards.forEach(card => {
-            const clone = card.cloneNode(true);
-            track.appendChild(clone);
-        });
-    }
+    cards.forEach(card => {
+        const clone = card.cloneNode(true);
+        track.appendChild(clone);
+    });
 }

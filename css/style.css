@@ -241,8 +241,9 @@ header p {
 .testimonials-track {
     display: flex;
     gap: 2rem;
-    animation: scroll 30s linear infinite; /* Faster scroll */
+    animation: testimonialScroll 30s linear infinite !important;
     width: max-content;
+    will-change: transform;
 }
 
 .testimonial-card {
@@ -304,9 +305,9 @@ header p {
     color: var(--text-secondary);
 }
 
-@keyframes scroll {
+@keyframes testimonialScroll {
     0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); } /* Works perfectly with the duplicated track */
+    100% { transform: translateX(-50%); }
 }
 
 /* Popup / Modal */
