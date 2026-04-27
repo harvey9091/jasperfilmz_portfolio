@@ -24,7 +24,6 @@ body {
     line-height: 1.6;
     overflow-x: hidden;
     scroll-behavior: smooth;
-    cursor: none; /* Hide default cursor */
 }
 
 /* Grain Overlay */
@@ -41,28 +40,6 @@ body {
     mix-blend-mode: overlay;
 }
 
-/* Custom Cursor */
-.cursor {
-    width: 8px;
-    height: 8px;
-    background: var(--accent);
-    border-radius: 50%;
-    position: fixed;
-    pointer-events: none;
-    z-index: 10000;
-    transition: transform 0.1s ease;
-}
-
-.cursor-follower {
-    width: 40px;
-    height: 40px;
-    border: 1px solid var(--accent);
-    border-radius: 50%;
-    position: fixed;
-    pointer-events: none;
-    z-index: 9999;
-    transition: transform 0.15s cubic-bezier(0.17, 0.67, 0.83, 0.67);
-}
 
 /* Background Decoration */
 body::before {
@@ -92,7 +69,7 @@ h1, h2, h3 {
 
 /* Header & Hero */
 header {
-    height: 80vh;
+    height: 50vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -118,7 +95,7 @@ header p {
 
 /* Categories */
 .categories-section {
-    padding: 4rem 0;
+    padding: 2rem 0;
 }
 
 .categories {
@@ -217,7 +194,7 @@ header p {
 
 /* Testimonials */
 .testimonials-section {
-    padding: 6rem 0;
+    padding: 3rem 0;
     overflow: hidden;
     position: relative;
 }
@@ -336,10 +313,10 @@ header p {
 
 /* Footer */
 footer {
-    padding: 4rem 0;
+    padding: 2rem 0;
     text-align: center;
     border-top: 1px solid var(--glass-border);
-    margin-top: 4rem;
+    margin-top: 2rem;
 }
 
 .social-links {

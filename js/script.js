@@ -1,52 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
-    initCursor();
     initAnimations();
     initCategorySwitching();
     initVideoModal();
     initTestimonialLoop();
 });
-
-/**
- * Custom Cursor Logic
- */
-function initCursor() {
-    const cursor = document.querySelector('.cursor');
-    const follower = document.querySelector('.cursor-follower');
-    
-    document.addEventListener('mousemove', (e) => {
-        gsap.to(cursor, {
-            x: e.clientX,
-            y: e.clientY,
-            duration: 0
-        });
-        gsap.to(follower, {
-            x: e.clientX - 16,
-            y: e.clientY - 16,
-            duration: 0.3
-        });
-    });
-
-    // Hover effects
-    const interactiveElements = document.querySelectorAll('button, .video-card, a, .category');
-    interactiveElements.forEach(el => {
-        el.addEventListener('mouseenter', () => {
-            cursor.classList.add('active');
-            gsap.to(follower, {
-                scale: 1.5,
-                backgroundColor: 'rgba(255, 180, 0, 0.1)',
-                duration: 0.3
-            });
-        });
-        el.addEventListener('mouseleave', () => {
-            cursor.classList.remove('active');
-            gsap.to(follower, {
-                scale: 1,
-                backgroundColor: 'transparent',
-                duration: 0.3
-            });
-        });
-    });
-}
 
 /**
  * GSAP Animations for entry and scroll
