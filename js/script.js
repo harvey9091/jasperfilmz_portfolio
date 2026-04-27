@@ -24,14 +24,7 @@ function initAnimations() {
         opacity: 0,
         duration: 0.8,
         ease: 'power3.out'
-    }, '-=0.6')
-    .from('.category', {
-        y: 20,
-        opacity: 0,
-        duration: 0.5,
-        stagger: 0.1,
-        ease: 'power2.out'
-    }, '-=0.4');
+    }, '-=0.6');
 
     // Scroll reveal for testimonials
     gsap.from('.testimonial-card', {
