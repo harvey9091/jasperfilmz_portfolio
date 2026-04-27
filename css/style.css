@@ -76,7 +76,8 @@ header {
     align-items: center;
     text-align: center;
     background: var(--bg-dark);
-    margin-bottom: -2px; /* Overlap to hide any sub-pixel rendering lines */
+    margin: 0;
+    padding: 0;
     position: relative;
     z-index: 1;
 }
@@ -98,7 +99,9 @@ header p {
 
 /* Categories */
 .categories-section {
-    padding: 2rem 0;
+    padding: 1rem 0 2rem;
+    background: var(--bg-dark);
+    margin-top: -2px; /* Overlap slightly to prevent rendering lines */
 }
 
 .categories {
@@ -203,9 +206,30 @@ header p {
     padding: 4rem 0;
     overflow: hidden;
     position: relative;
-    width: 100vw; /* Full screen width */
+    width: 100vw;
     margin-left: 50%;
     transform: translateX(-50%);
+}
+
+.testimonials-section::before,
+.testimonials-section::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 15%;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.testimonials-section::before {
+    left: 0;
+    background: linear-gradient(to right, var(--bg-dark), transparent);
+}
+
+.testimonials-section::after {
+    right: 0;
+    background: linear-gradient(to left, var(--bg-dark), transparent);
 }
 
 .testimonials-section h2 {
@@ -282,7 +306,7 @@ header p {
 
 @keyframes scroll {
     0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); } /* Halfway point for seamless loop with duplicated items */
+    100% { transform: translateX(-50%); } /* Works perfectly with the duplicated track */
 }
 
 /* Popup / Modal */
