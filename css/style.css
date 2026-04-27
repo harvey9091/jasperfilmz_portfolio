@@ -62,9 +62,9 @@ h1, h2, h3 {
 
 /* Layout */
 .container {
-    max-width: 1200px;
+    max-width: 1600px; /* Increased from 1200px for bigger video cards */
     margin: 0 auto;
-    padding: 0 2rem;
+    padding: 0 4rem;
 }
 
 /* Header & Hero */
@@ -75,7 +75,10 @@ header {
     justify-content: center;
     align-items: center;
     text-align: center;
-    background: var(--bg-dark); /* Removed gradient to eliminate the 'odd line' boundary */
+    background: var(--bg-dark);
+    margin-bottom: -2px; /* Overlap to hide any sub-pixel rendering lines */
+    position: relative;
+    z-index: 1;
 }
 
 header h1 {
@@ -197,9 +200,12 @@ header p {
 
 /* Testimonials */
 .testimonials-section {
-    padding: 3rem 0;
+    padding: 4rem 0;
     overflow: hidden;
     position: relative;
+    width: 100vw; /* Full screen width */
+    margin-left: 50%;
+    transform: translateX(-50%);
 }
 
 .testimonials-section h2 {
@@ -211,7 +217,7 @@ header p {
 .testimonials-track {
     display: flex;
     gap: 2rem;
-    animation: scroll 40s linear infinite;
+    animation: scroll 30s linear infinite; /* Faster scroll */
     width: max-content;
 }
 
