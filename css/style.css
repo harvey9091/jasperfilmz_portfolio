@@ -69,7 +69,7 @@ h1, h2, h3 {
 
 /* Header & Hero */
 header {
-    height: 40vh; /* Reduced from 50vh */
+    height: 25vh; /* Reduced to reduce gap above logo */
     display: flex;
     flex-direction: column;
     justify-content: flex-end; /* Align content towards the bottom to minimize gap to categories */
